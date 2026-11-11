@@ -317,7 +317,7 @@ You have no open assembly assignments right now. Completed assignments remain av
                 <CardActionArea onClick={() => router.push(`/active-job/${encodeURIComponent(assignment.number)}`)}>
                   <CardContent sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 2 }}>
                     <Box sx={{ minWidth: 0 }}>
-                      <Typography fontWeight={700}>{assignment.number}</Typography>
+                      <Typography sx={{ fontWeight: 700 }}>{assignment.number}</Typography>
                       <Typography variant="body2" color="text.secondary">{assignment.description || assignment.itemNo} · Order {assignment.assemblyOrderNo}</Typography>
                       <Typography variant="caption" color="text.secondary">Posted {assignment.postedQtyBase.toLocaleString()} of {assignment.assignedQtyBase.toLocaleString()} · {formatClosedElapsed(assignment.totalElapsedTimeSec)}</Typography>
                     </Box>

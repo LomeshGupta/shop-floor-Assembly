@@ -320,6 +320,9 @@ export const businessCentralAdapter: ShopFloorService = {
     const assignment = await this.getAssignment(sessionToken, assignmentNo);
     if (!assignment.ok) return assignment;
     const config = getBcConfig();
+    if (config.mode === "demo") {
+      throw new Error("getAssignmentComponents() called with BC_MODE=demo on the real adapter.");
+    }
     const result = await callODataAction<{
       success: boolean;
       components?: AssignmentComponent[];
@@ -501,6 +504,9 @@ async function runComponentAction(
   input: SaveConsumptionInput | RequestReplacementInput,
 ): Promise<ApiResult<AssignmentComponent>> {
   const config = getBcConfig();
+  if (config.mode === "demo") {
+    throw new Error(`${procedureName}() called with BC_MODE=demo on the real adapter.`);
+  }
   const actionResult = await callODataAction<{
     success: boolean;
     component?: AssignmentComponent;

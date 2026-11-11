@@ -101,7 +101,7 @@ export default function AssignmentMaterialsPage() {
     <ScreenShell title="Material Consumption" onBack={() => router.push(`/active-job/${encodeURIComponent(assignmentNo)}`)}>
       <Stack spacing={2} sx={{ pb: 2 }}>
         <Box>
-          <Typography variant="h5" fontWeight={700}>BOM materials</Typography>
+          <Typography variant="h5" sx={{ fontWeight: 700 }}>BOM materials</Typography>
           <Typography variant="body2" color="text.secondary">Enter the actual quantity consumed for each component. Replacement requests require approval in Business Central.</Typography>
         </Box>
         {error && <Alert severity="error" onClose={() => setError(null)}>{error.message}</Alert>}
@@ -114,7 +114,7 @@ export default function AssignmentMaterialsPage() {
               <Stack spacing={1.5}>
                 <Box sx={{ display: "flex", justifyContent: "space-between", gap: 1, alignItems: "flex-start" }}>
                   <Box sx={{ minWidth: 0 }}>
-                    <Typography fontWeight={700}>{line.itemNo}</Typography>
+                    <Typography sx={{ fontWeight: 700 }}>{line.itemNo}</Typography>
                     <Typography variant="body2" color="text.secondary">{line.description}</Typography>
                   </Box>
                   <Chip size="small" label={line.replacementStatus === "None" ? "BOM item" : line.replacementStatus} color={line.replacementStatus === "Approved" ? "success" : line.replacementStatus === "Pending" ? "warning" : "default"} />
@@ -129,7 +129,7 @@ export default function AssignmentMaterialsPage() {
                   label={`Actual consumed (${line.unitOfMeasureCode || "base UOM"})`}
                   value={quantities[line.lineNo] ?? ""}
                   onChange={(event) => setQuantities((current) => ({ ...current, [line.lineNo]: event.target.value }))}
-                  inputProps={{ min: 0, max: Math.max(0, line.expectedQtyBase - (line.totalPostedConsumedQtyBase ?? line.lastPostedConsumedQtyBase)), step: "any" }}
+                  slotProps={{ htmlInput: { min: 0, max: Math.max(0, line.expectedQtyBase - (line.totalPostedConsumedQtyBase ?? line.lastPostedConsumedQtyBase)), step: "any" } }}
                   disabled={line.replacementStatus === "Pending" || busyLine === line.lineNo}
                 />
                 <TextField
